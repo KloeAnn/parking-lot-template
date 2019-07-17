@@ -22,6 +22,9 @@ public class ProcuratorateRepositoryTest {
     @Autowired
     private ProcuratorateRepository procuratorateRepository;
 
+    @Autowired
+    private CriminalCaseRepository criminalCaseRepository;
+
     @Before
     public void setUp() throws Exception{
         List<Procuratorate> procuratorates = new ArrayList<>();
@@ -59,6 +62,15 @@ public class ProcuratorateRepositoryTest {
         List<Procuratorate> findedProcuratorates = procuratorateRepository.findAll();
 
         assertEquals(procuratorates.size(), findedProcuratorates.size());
+    }
+
+    @Test
+    public void should_return_null_when_call_create_a_case_with_null_procuratorate() {
+        CriminalCase criminalCase =  new CriminalCase("ccc", 1563161000, null, null);
+
+        Assertions.assertThrows(Exception.class, () ->{
+            criminalCaseRepository.saveAndFlush(criminalCase);
+        });
     }
 
 
