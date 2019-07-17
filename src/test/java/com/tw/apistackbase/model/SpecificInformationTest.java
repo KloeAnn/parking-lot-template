@@ -1,5 +1,6 @@
 package com.tw.apistackbase.model;
 
+import com.tw.apistackbase.repository.CriminalCaseRepository;
 import com.tw.apistackbase.repository.SpecificInformationRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,6 +22,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SpecificInformationTest {
     @Autowired
     private SpecificInformationRepository specificInformationRepository;
+
+    @Autowired
+    private CriminalCaseRepository criminalCaseRepository;
 
     @Before
     public void setUp() throws Exception{
@@ -52,4 +56,14 @@ public class SpecificInformationTest {
         Optional<SpecificInformation> specificInformation = specificInformationRepository.findById((long)2);
         assertNotNull(specificInformation.get());
     }
+
+    @Test
+    public void should_return_case_with_specific_info_when_call_find_case() {
+        SpecificInformation specificInformation = new SpecificInformation("a", "b");
+        CriminalCase criminalCase = new CriminalCase("bbb", 1563263512, specificInformation);
+        CriminalCase createdCriminalCase = criminalCaseRepository.saveAndFlush(criminalCase);
+        assertEquals(criminalCase, createdCriminalCase);
+    }
+
+
 }

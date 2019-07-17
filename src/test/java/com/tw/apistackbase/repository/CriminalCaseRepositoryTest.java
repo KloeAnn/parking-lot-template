@@ -28,16 +28,16 @@ public class CriminalCaseRepositoryTest {
     @Before
     public void setUp() throws Exception{
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("ccc", 1563161000));
-        criminalCases.add(new CriminalCase("vvv", 1563360000));
-        criminalCases.add(new CriminalCase("bbb", 1563263512));
-        criminalCases.add(new CriminalCase("bbb", 1563263516));
+        criminalCases.add(new CriminalCase("ccc", 1563161000, null));
+        criminalCases.add(new CriminalCase("vvv", 1563360000, null));
+        criminalCases.add(new CriminalCase("bbb", 1563263512, null));
+        criminalCases.add(new CriminalCase("bbb", 1563263516, null));
         criminalCaseRepository.saveAll(criminalCases);
     }
 
     @Test
     public void should_return_a_case_when_call_create_a_case() {
-        CriminalCase criminalCase = new CriminalCase("a", 1563361068);
+        CriminalCase criminalCase = new CriminalCase("a", 1563361068, null);
         CriminalCase createdCriminalCase = criminalCaseRepository.save(criminalCase);
         Assert.assertEquals(criminalCase, createdCriminalCase);
     }
@@ -60,10 +60,10 @@ public class CriminalCaseRepositoryTest {
     @Test
     public void should_return_cases_when_call_find_case_order_by_time() {
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("vvv", 1563360000));
-        criminalCases.add(new CriminalCase("bbb", 1563263516));
-        criminalCases.add(new CriminalCase("bbb", 1563263512));
-        criminalCases.add(new CriminalCase("ccc", 1563161000));
+        criminalCases.add(new CriminalCase("vvv", 1563360000, null));
+        criminalCases.add(new CriminalCase("bbb", 1563263516, null));
+        criminalCases.add(new CriminalCase("bbb", 1563263512, null));
+        criminalCases.add(new CriminalCase("ccc", 1563161000, null));
 
         List<CriminalCase> findedCriminalCases = criminalCaseRepository.findAllByTimeSort();
         List<Long> findedTimes = findedCriminalCases.stream().mapToLong(CriminalCase::getIncidentTime).boxed().collect(Collectors.toList());
@@ -75,8 +75,8 @@ public class CriminalCaseRepositoryTest {
     public void should_return_cases_when_call_find_case_by_name() {
         List<CriminalCase> findedCriminalCases = criminalCaseRepository.findByName("bbb");
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("bbb", 1563263516));
-        criminalCases.add(new CriminalCase("bbb", 1563263512));
+        criminalCases.add(new CriminalCase("bbb", 1563263516, null));
+        criminalCases.add(new CriminalCase("bbb", 1563263512, null));
         assertEquals(findedCriminalCases.size(), criminalCases.size());
     }
 
