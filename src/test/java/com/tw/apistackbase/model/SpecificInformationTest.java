@@ -39,13 +39,13 @@ public class SpecificInformationTest {
         Assert.assertEquals(specificInformation, createdSpecificInfo);
     }
 
-//    @Test
-//    public void should_return_null_when_call_create_an_null_case() {
-//        SpecificInformation specificInformation = new SpecificInformation();
-//        Assertions.assertThrows(Exception.class, () ->{
-//            specificInformationRepository.saveAndFlush(specificInformation);
-//        });
-//    }
+    @Test
+    public void should_return_null_when_call_create_an_null_case() {
+        SpecificInformation specificInformation = new SpecificInformation();
+        Assertions.assertThrows(Exception.class, () ->{
+            specificInformationRepository.saveAndFlush(specificInformation);
+        });
+    }
 //
 //    @Test
 //    public void should_return_cases_when_call_find_case_by_id() {
