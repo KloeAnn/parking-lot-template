@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,6 +53,18 @@ public class CriminalCaseRepositoryTest {
     public void should_return_cases_when_call_find_case_by_id() {
        Optional<CriminalCase> criminalCase = criminalCaseRepository.findById((long)1);
        assertNotNull(criminalCase.get());
+    }
+
+    @Test
+    public void should_return_cases_when_call_find_case_order_by_time() {
+        List<CriminalCase> criminalCases = new ArrayList<>();
+        criminalCases.add(new CriminalCase("vvv", 1563360000));
+        criminalCases.add(new CriminalCase("bbb", 1563263512));
+        criminalCases.add(new CriminalCase("ccc", 1563161000));
+        List<CriminalCase> findedCriminalCases = criminalCaseRepository.findAllByTimeSort();
+        List<Long> findedTimes = findedCriminalCases.stream().mapToLong(CriminalCase::getIncidentTime).boxed().collect(Collectors.toList());
+        List<Long> times = criminalCases.stream().mapToLong(CriminalCase::getIncidentTime).boxed().collect(Collectors.toList());
+        assertEquals(findedTimes, times);
     }
 
 
