@@ -37,10 +37,10 @@ public class SpecificInformationTest {
         specificInformationRepository.saveAll(specificInformations);
 
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("ccc", 1563161000, specificInformations.get(0)));
-        criminalCases.add(new CriminalCase("vvv", 1563360000, specificInformations.get(1)));
-        criminalCases.add(new CriminalCase("bbb", 1563263512, specificInformations.get(2)));
-        criminalCases.add(new CriminalCase("bbb", 1563263516, specificInformations.get(3)));
+        criminalCases.add(new CriminalCase("ccc", 1563161000, specificInformations.get(0), new Procuratorate("z")));
+        criminalCases.add(new CriminalCase("vvv", 1563360000, specificInformations.get(1), new Procuratorate("z")));
+        criminalCases.add(new CriminalCase("bbb", 1563263512, specificInformations.get(2), new Procuratorate("z")));
+        criminalCases.add(new CriminalCase("bbb", 1563263516, specificInformations.get(3), new Procuratorate("z")));
         criminalCaseRepository.saveAll(criminalCases);
     }
 
@@ -68,7 +68,7 @@ public class SpecificInformationTest {
     @Test
     public void should_return_case_with_specific_info_when_call_find_case() {
         SpecificInformation specificInformation = new SpecificInformation("a", "b");
-        CriminalCase criminalCase = new CriminalCase("bbb", 1563263512, specificInformation);
+        CriminalCase criminalCase = new CriminalCase("bbb", 1563263512, specificInformation, new Procuratorate("z"));
         CriminalCase createdCriminalCase = criminalCaseRepository.saveAndFlush(criminalCase);
         assertEquals(criminalCase.getSpecificInformation(), createdCriminalCase.getSpecificInformation());
     }
@@ -82,10 +82,10 @@ public class SpecificInformationTest {
         specificInformations.add(new SpecificInformation("aaaaaa", "ssssss"));
 
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("ccc", 1563161000, specificInformations.get(0)));
-        criminalCases.add(new CriminalCase("vvv", 1563360000, specificInformations.get(1)));
-        criminalCases.add(new CriminalCase("bbb", 1563263512, specificInformations.get(2)));
-        criminalCases.add(new CriminalCase("bbb", 1563263516, specificInformations.get(3)));
+        criminalCases.add(new CriminalCase("ccc", 1563161000, specificInformations.get(0), new Procuratorate("z")));
+        criminalCases.add(new CriminalCase("vvv", 1563360000, specificInformations.get(1), new Procuratorate("z")));
+        criminalCases.add(new CriminalCase("bbb", 1563263512, specificInformations.get(2), new Procuratorate("z")));
+        criminalCases.add(new CriminalCase("bbb", 1563263516, specificInformations.get(3), new Procuratorate("z")));
 
         List<CriminalCase> findCriminalCases = criminalCaseRepository.findAll();
 
