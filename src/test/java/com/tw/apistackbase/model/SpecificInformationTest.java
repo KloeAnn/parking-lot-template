@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +35,13 @@ public class SpecificInformationTest {
         specificInformations.add(new SpecificInformation("bbbbb", "nnnnn"));
         specificInformations.add(new SpecificInformation("aaaaaa", "ssssss"));
         specificInformationRepository.saveAll(specificInformations);
+
+        List<CriminalCase> criminalCases = new ArrayList<>();
+        criminalCases.add(new CriminalCase("ccc", 1563161000, specificInformations.get(0)));
+        criminalCases.add(new CriminalCase("vvv", 1563360000, specificInformations.get(1)));
+        criminalCases.add(new CriminalCase("bbb", 1563263512, specificInformations.get(2)));
+        criminalCases.add(new CriminalCase("bbb", 1563263516, specificInformations.get(3)));
+        criminalCaseRepository.saveAll(criminalCases);
     }
 
     @Test
@@ -62,8 +70,28 @@ public class SpecificInformationTest {
         SpecificInformation specificInformation = new SpecificInformation("a", "b");
         CriminalCase criminalCase = new CriminalCase("bbb", 1563263512, specificInformation);
         CriminalCase createdCriminalCase = criminalCaseRepository.saveAndFlush(criminalCase);
-        assertEquals(criminalCase, createdCriminalCase);
+        assertEquals(criminalCase.getSpecificInformation(), createdCriminalCase.getSpecificInformation());
     }
 
+    @Test
+    public void should_return_cases_with_specific_info_when_call_find_cases() {
+        List<SpecificInformation> specificInformations = new ArrayList<>();
+        specificInformations.add(new SpecificInformation("zzzzz", "xxxxx"));
+        specificInformations.add(new SpecificInformation("ccccc", "vvvvv"));
+        specificInformations.add(new SpecificInformation("bbbbb", "nnnnn"));
+        specificInformations.add(new SpecificInformation("aaaaaa", "ssssss"));
 
+        List<CriminalCase> criminalCases = new ArrayList<>();
+        criminalCases.add(new CriminalCase("ccc", 1563161000, specificInformations.get(0)));
+        criminalCases.add(new CriminalCase("vvv", 1563360000, specificInformations.get(1)));
+        criminalCases.add(new CriminalCase("bbb", 1563263512, specificInformations.get(2)));
+        criminalCases.add(new CriminalCase("bbb", 1563263516, specificInformations.get(3)));
+
+        List<CriminalCase> findCriminalCases = criminalCaseRepository.findAll();
+
+        List<String> specificInfoIds = criminalCases.stream().map(x-> x.getSpecificInformation().getObjectiveDescription()).collect(Collectors.toList());
+        List<String> findSpecificInfoIds = findCriminalCases.stream().map(x-> x.getSpecificInformation().getObjectiveDescription()).collect(Collectors.toList());
+
+        assertEquals(specificInfoIds, findSpecificInfoIds);
+    }
 }
