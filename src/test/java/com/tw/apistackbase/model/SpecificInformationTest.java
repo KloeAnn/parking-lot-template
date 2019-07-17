@@ -46,10 +46,10 @@ public class SpecificInformationTest {
             specificInformationRepository.saveAndFlush(specificInformation);
         });
     }
-//
-//    @Test
-//    public void should_return_cases_when_call_find_case_by_id() {
-//        Optional<SpecificInformation> specificInformation = specificInformationRepository.findById((long)2);
-//        assertNotNull(specificInformation.get());
-//    }
+
+    @Test
+    public void should_return_cases_when_call_find_case_by_id() {
+        Optional<SpecificInformation> specificInformation = specificInformationRepository.findById((long)2);
+        assertNotNull(specificInformation.get());
+    }
 }
