@@ -45,14 +45,14 @@ public class ProcuratorateRepositoryTest {
     }
 
     @Test
-    public void should_return_a_case_when_call_create_a_case() {
+    public void should_return_a_procuratorate_when_call_create_a_procuratorate() {
         Procuratorate procuratorate = new Procuratorate("ooo");
         Procuratorate createdProcuratorate = procuratorateRepository.save(procuratorate);
         Assert.assertEquals(procuratorate, createdProcuratorate);
     }
 
     @Test
-    public void should_return_null_when_call_create_an_null_case() {
+    public void should_return_null_when_call_create_an_null_procuratorate() {
         Procuratorate criminalCase = new Procuratorate();
 
         Assertions.assertThrows(Exception.class, () ->{
@@ -83,7 +83,7 @@ public class ProcuratorateRepositoryTest {
     }
 
     @Test
-    public void should_return_cases_with_specific_info_when_call_find_cases() {
+    public void should_return_procuratorates_with_new_procuratorate_when_call_find_procuratorates() {
         Procuratorate firstProcuratorate = new Procuratorate("z");
         Procuratorate secondProcuratorate = new Procuratorate("c");
         Procuratorate thirdProcuratorate = new Procuratorate("b");

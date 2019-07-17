@@ -45,14 +45,14 @@ public class SpecificInformationTest {
     }
 
     @Test
-    public void should_return_a_case_when_call_create_a_case() {
+    public void should_return_a_specific_info_when_call_create_a_specific_infoe() {
         SpecificInformation specificInformation = new SpecificInformation("a", "b");
         SpecificInformation createdSpecificInfo = specificInformationRepository.save(specificInformation);
         Assert.assertEquals(specificInformation, createdSpecificInfo);
     }
 
     @Test
-    public void should_return_null_when_call_create_an_null_case() {
+    public void should_return_null_when_call_create_an_null_specific_info() {
         SpecificInformation specificInformation = new SpecificInformation();
         Assertions.assertThrows(Exception.class, () ->{
             specificInformationRepository.saveAndFlush(specificInformation);
@@ -60,7 +60,7 @@ public class SpecificInformationTest {
     }
 
     @Test
-    public void should_return_cases_when_call_find_case_by_id() {
+    public void should_return_specific_info_when_call_find_case_by_id() {
         Optional<SpecificInformation> specificInformation = specificInformationRepository.findById((long)2);
         assertNotNull(specificInformation.get());
     }
