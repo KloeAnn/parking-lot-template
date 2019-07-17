@@ -30,6 +30,7 @@ public class CriminalCaseRepositoryTest {
         criminalCases.add(new CriminalCase("ccc", 1563161000));
         criminalCases.add(new CriminalCase("vvv", 1563360000));
         criminalCases.add(new CriminalCase("bbb", 1563263512));
+        criminalCases.add(new CriminalCase("bbb", 1563263516));
         criminalCaseRepository.saveAll(criminalCases);
     }
 
@@ -59,6 +60,7 @@ public class CriminalCaseRepositoryTest {
     public void should_return_cases_when_call_find_case_order_by_time() {
         List<CriminalCase> criminalCases = new ArrayList<>();
         criminalCases.add(new CriminalCase("vvv", 1563360000));
+        criminalCases.add(new CriminalCase("bbb", 1563263516));
         criminalCases.add(new CriminalCase("bbb", 1563263512));
         criminalCases.add(new CriminalCase("ccc", 1563161000));
         List<CriminalCase> findedCriminalCases = criminalCaseRepository.findAllByTimeSort();
@@ -67,5 +69,12 @@ public class CriminalCaseRepositoryTest {
         assertEquals(findedTimes, times);
     }
 
-
+    @Test
+    public void should_return_cases_when_call_find_case_by_name() {
+        List<CriminalCase> findedCriminalCases = criminalCaseRepository.findByName("bbb");
+        List<CriminalCase> criminalCases = new ArrayList<>();
+        criminalCases.add(new CriminalCase("bbb", 1563263516));
+        criminalCases.add(new CriminalCase("bbb", 1563263512));
+        assertEquals(findedCriminalCases.size(), criminalCases.size());
+    }
 }

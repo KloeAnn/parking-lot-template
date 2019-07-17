@@ -10,4 +10,6 @@ import java.util.List;
 public interface CriminalCaseRepository extends JpaRepository<CriminalCase, Long> {
     @Query(value = "SELECT c FROM CriminalCase c ORDER BY incidentTime desc")
     List<CriminalCase> findAllByTimeSort();
+
+    List<CriminalCase> findByName(String name);
 }
