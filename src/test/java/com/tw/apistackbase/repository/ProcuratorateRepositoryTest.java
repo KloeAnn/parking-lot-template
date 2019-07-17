@@ -2,6 +2,7 @@ package com.tw.apistackbase.repository;
 
 import com.tw.apistackbase.model.CriminalCase;
 import com.tw.apistackbase.model.Procuratorate;
+import com.tw.apistackbase.model.SpecificInformation;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,6 +35,13 @@ public class ProcuratorateRepositoryTest {
         procuratorates.add(new Procuratorate("b"));
         procuratorates.add(new Procuratorate("a"));
         procuratorateRepository.saveAll(procuratorates);
+
+        List<CriminalCase> criminalCases = new ArrayList<>();
+        criminalCases.add(new CriminalCase("ccc", 1563161000, null, procuratorates.get(0)));
+        criminalCases.add(new CriminalCase("vvv", 1563360000, null, procuratorates.get(1)));
+        criminalCases.add(new CriminalCase("bbb", 1563263512, null, procuratorates.get(2)));
+        criminalCases.add(new CriminalCase("bbb", 1563263516, null, procuratorates.get(3)));
+        criminalCaseRepository.saveAll(criminalCases);
     }
 
     @Test
@@ -73,5 +82,25 @@ public class ProcuratorateRepositoryTest {
         });
     }
 
+    @Test
+    public void should_return_cases_with_specific_info_when_call_find_cases() {
+        Procuratorate firstProcuratorate = new Procuratorate("z");
+        Procuratorate secondProcuratorate = new Procuratorate("c");
+        Procuratorate thirdProcuratorate = new Procuratorate("b");
+        Procuratorate fourthProcuratorate = new Procuratorate("a");
 
+
+        List<CriminalCase> criminalCases = new ArrayList<>();
+        criminalCases.add(new CriminalCase("ccc", 1563161000, null, firstProcuratorate));
+        criminalCases.add(new CriminalCase("vvv", 1563360000, null, secondProcuratorate));
+        criminalCases.add(new CriminalCase("bbb", 1563263512, null, thirdProcuratorate));
+        criminalCases.add(new CriminalCase("bbb", 1563263516, null, fourthProcuratorate));
+
+        List<CriminalCase> findCriminalCases = criminalCaseRepository.findAll();
+
+        List<String> procuratorateNames = criminalCases.stream().map(x-> x.getProcuratorate().getName()).collect(Collectors.toList());
+        List<String> findprocuratorateNames = findCriminalCases.stream().map(x-> x.getProcuratorate().getName()).collect(Collectors.toList());
+
+        assertEquals(procuratorateNames, findprocuratorateNames);
+    }
 }
