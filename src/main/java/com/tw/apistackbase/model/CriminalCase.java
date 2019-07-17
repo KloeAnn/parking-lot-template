@@ -14,7 +14,6 @@ public class CriminalCase {
 
     @NotNull
     private String name;
-
     @NotNull
     private long incidentTime;
 

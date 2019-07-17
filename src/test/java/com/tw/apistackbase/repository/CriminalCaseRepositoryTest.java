@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class CriminalCaseRepositoryTest {
 
     @Test
     public void should_return_cases_when_call_find_case_by_id() {
-       Optional<CriminalCase> criminalCase = criminalCaseRepository.findById((long)1);
+       Optional<CriminalCase> criminalCase = criminalCaseRepository.findById((long)2);
        assertNotNull(criminalCase.get());
     }
 
