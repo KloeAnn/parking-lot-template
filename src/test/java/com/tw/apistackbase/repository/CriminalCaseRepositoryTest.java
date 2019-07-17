@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,11 +42,16 @@ public class CriminalCaseRepositoryTest {
     @Test
     public void should_return_null_when_call_create_an_null_case() {
         CriminalCase criminalCase = new CriminalCase();
-        CriminalCase createdCriminalCase = criminalCaseRepository.save(criminalCase);
 
         Assertions.assertThrows(Exception.class, () ->{
-            criminalCaseRepository.findAll();
+            criminalCaseRepository.saveAndFlush(criminalCase);
         });
+    }
+
+    @Test
+    public void should_return_cases_when_call_find_case_by_id() {
+       Optional<CriminalCase> criminalCase = criminalCaseRepository.findById((long)1);
+       assertNotNull(criminalCase.get());
     }
 
 
