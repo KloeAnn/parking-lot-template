@@ -63,6 +63,7 @@ public class CriminalCaseRepositoryTest {
         criminalCases.add(new CriminalCase("bbb", 1563263516));
         criminalCases.add(new CriminalCase("bbb", 1563263512));
         criminalCases.add(new CriminalCase("ccc", 1563161000));
+
         List<CriminalCase> findedCriminalCases = criminalCaseRepository.findAllByTimeSort();
         List<Long> findedTimes = findedCriminalCases.stream().mapToLong(CriminalCase::getIncidentTime).boxed().collect(Collectors.toList());
         List<Long> times = criminalCases.stream().mapToLong(CriminalCase::getIncidentTime).boxed().collect(Collectors.toList());
@@ -76,5 +77,13 @@ public class CriminalCaseRepositoryTest {
         criminalCases.add(new CriminalCase("bbb", 1563263516));
         criminalCases.add(new CriminalCase("bbb", 1563263512));
         assertEquals(findedCriminalCases.size(), criminalCases.size());
+    }
+
+    @Test
+    public void should_no_return_when_call_delete_case_by_id() {
+        List<CriminalCase> beforeCriminalCases = criminalCaseRepository.findAll();
+        criminalCaseRepository.deleteById((long) 1);
+        List<CriminalCase> criminalCases = criminalCaseRepository.findAll();
+        assertEquals(criminalCases.size(), beforeCriminalCases.size() - 1);
     }
 }
