@@ -1,5 +1,6 @@
 package com.tw.apistackbase.repository;
 
+import com.sun.org.apache.xerces.internal.xs.StringList;
 import com.tw.apistackbase.model.CriminalCase;
 import com.tw.apistackbase.model.Procuratorate;
 import com.tw.apistackbase.model.Prosecutor;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +24,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ProsecutorRepositoryTest {
     @Autowired
     private ProsecutorRepository prosecutorRepository;
+
+    @Autowired
+    private ProcuratorateRepository procuratorateRepository;
 
     @Before
     public void setUp() throws Exception{
@@ -60,6 +65,23 @@ public class ProsecutorRepositoryTest {
         List<Prosecutor> findedProcurators = prosecutorRepository.findAll();
 
         assertEquals(procurators.size(), findedProcurators.size());
+    }
+
+    @Test
+    public void should_return_procuratorates_when_find_all_procuratorates() {
+        List<Prosecutor> procurators = new ArrayList<>();
+        procurators.add(new Prosecutor("z"));
+        procurators.add(new Prosecutor("c"));
+        procurators.add(new Prosecutor("b"));
+        procurators.add(new Prosecutor("a"));
+
+        Procuratorate procuratorate = new Procuratorate("z", procurators);
+        Procuratorate createdProcuratorate = procuratorateRepository.save(procuratorate);
+
+        List<String> procuratorNames = procurators.stream().map(Prosecutor::getName).collect(Collectors.toList());
+        List<String> creadtedProcuratorNames = createdProcuratorate.getProsecutorList().stream().map(Prosecutor::getName).collect(Collectors.toList());
+
+        assertEquals(procuratorNames, creadtedProcuratorNames);
     }
 
 }

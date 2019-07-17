@@ -2,6 +2,7 @@ package com.tw.apistackbase.repository;
 
 import com.tw.apistackbase.model.CriminalCase;
 import com.tw.apistackbase.model.Procuratorate;
+import com.tw.apistackbase.model.Prosecutor;
 import com.tw.apistackbase.model.SpecificInformation;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,10 +31,10 @@ public class ProcuratorateRepositoryTest {
     @Before
     public void setUp() throws Exception{
         List<Procuratorate> procuratorates = new ArrayList<>();
-        procuratorates.add(new Procuratorate("z"));
-        procuratorates.add(new Procuratorate("c"));
-        procuratorates.add(new Procuratorate("b"));
-        procuratorates.add(new Procuratorate("a"));
+        procuratorates.add(new Procuratorate("z", null));
+        procuratorates.add(new Procuratorate("c", null));
+        procuratorates.add(new Procuratorate("b", null));
+        procuratorates.add(new Procuratorate("a", null));
         procuratorateRepository.saveAll(procuratorates);
 
         List<CriminalCase> criminalCases = new ArrayList<>();
@@ -46,7 +47,7 @@ public class ProcuratorateRepositoryTest {
 
     @Test
     public void should_return_a_procuratorate_when_call_create_a_procuratorate() {
-        Procuratorate procuratorate = new Procuratorate("ooo");
+        Procuratorate procuratorate = new Procuratorate("ooo", null);
         Procuratorate createdProcuratorate = procuratorateRepository.save(procuratorate);
         Assert.assertEquals(procuratorate, createdProcuratorate);
     }
@@ -63,10 +64,10 @@ public class ProcuratorateRepositoryTest {
     @Test
     public void should_return_procuratorates_when_find_all_procuratorates() {
         List<Procuratorate> procuratorates = new ArrayList<>();
-        procuratorates.add(new Procuratorate("z"));
-        procuratorates.add(new Procuratorate("c"));
-        procuratorates.add(new Procuratorate("b"));
-        procuratorates.add(new Procuratorate("a"));
+        procuratorates.add(new Procuratorate("z", null));
+        procuratorates.add(new Procuratorate("c", null));
+        procuratorates.add(new Procuratorate("b", null));
+        procuratorates.add(new Procuratorate("a", null));
 
         List<Procuratorate> findedProcuratorates = procuratorateRepository.findAll();
 
@@ -84,10 +85,10 @@ public class ProcuratorateRepositoryTest {
 
     @Test
     public void should_return_procuratorates_with_new_procuratorate_when_call_find_procuratorates() {
-        Procuratorate firstProcuratorate = new Procuratorate("z");
-        Procuratorate secondProcuratorate = new Procuratorate("c");
-        Procuratorate thirdProcuratorate = new Procuratorate("b");
-        Procuratorate fourthProcuratorate = new Procuratorate("a");
+        Procuratorate firstProcuratorate = new Procuratorate("z", null);
+        Procuratorate secondProcuratorate = new Procuratorate("c", null);
+        Procuratorate thirdProcuratorate = new Procuratorate("b", null);
+        Procuratorate fourthProcuratorate = new Procuratorate("a", null);
 
 
         List<CriminalCase> criminalCases = new ArrayList<>();
@@ -99,8 +100,8 @@ public class ProcuratorateRepositoryTest {
         List<CriminalCase> findCriminalCases = criminalCaseRepository.findAll();
 
         List<String> procuratorateNames = criminalCases.stream().map(x-> x.getProcuratorate().getName()).collect(Collectors.toList());
-        List<String> findprocuratorateNames = findCriminalCases.stream().map(x-> x.getProcuratorate().getName()).collect(Collectors.toList());
+        List<String> findProcuratorateNames = findCriminalCases.stream().map(x-> x.getProcuratorate().getName()).collect(Collectors.toList());
 
-        assertEquals(procuratorateNames, findprocuratorateNames);
+        assertEquals(procuratorateNames, findProcuratorateNames);
     }
 }
