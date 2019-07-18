@@ -17,10 +17,56 @@ public class Prosecutor {
     @Column(name = "ProcuratorName")
     private String name;
 
+    private int age;
+    private String sex;
+    private String birthday;
+    private String IdNumber;
+    private String experience;
+
     public Prosecutor() {}
 
     public Prosecutor(@NotNull String name) {
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getIdNumber() {
+        return IdNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        IdNumber = idNumber;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 
     public long getId() {
