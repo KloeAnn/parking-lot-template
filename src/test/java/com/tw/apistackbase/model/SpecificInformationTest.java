@@ -1,7 +1,5 @@
 package com.tw.apistackbase.model;
 
-import com.tw.apistackbase.repository.CriminalCaseRepository;
-import com.tw.apistackbase.repository.SpecificInformationRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
